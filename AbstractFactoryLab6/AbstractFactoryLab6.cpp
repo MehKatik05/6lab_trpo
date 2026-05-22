@@ -11,6 +11,7 @@ class Soup {
 public:
     virtual ~Soup() {}
     virtual void serve() const = 0;
+    virtual int getCalories() const = 0;
 };
 
 //Борщ
@@ -19,6 +20,7 @@ public:
     void serve() const override {
         cout << "Подаётся борщ." << std::endl;
     }
+    int getCalories() const override { return 150; }
 };
 
 //Тыквенный суп
@@ -27,6 +29,7 @@ public:
     void serve() const override {
         cout << "Подаётся тыквенный суп." << std::endl;
     }
+    int getCalories() const override { return 120; }
 };
 
 //Вторые блюда
@@ -34,6 +37,7 @@ class SecondCourse {
 public:
     virtual ~SecondCourse() {}
     virtual void serve() const = 0;
+    virtual int getCalories() const = 0;
 };
 
 //Жареная картошка
@@ -42,6 +46,7 @@ public:
     void serve() const override {
         cout << "Подаётся жареная картошка." << endl;
     }
+    int getCalories() const override { return 300; }
 };
 
 //Котлета
@@ -50,4 +55,5 @@ public:
     void serve() const override {
         cout << "Подаётся котлета." << endl;
     }
+    int getCalories() const override { return 250; }
 };
