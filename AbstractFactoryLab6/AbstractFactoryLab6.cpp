@@ -101,3 +101,17 @@ public:
         return new FriedPotatoes(); //жареная картошка
     }
 };
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    MeatDiet meat;
+    VegetarianDiet veg;
+
+    cout << "Мясная диета:" << endl;
+    meat.printMenu();
+
+    cout << "\nВегетарианская диета:" << endl;
+    veg.printMenu();
+
+    return 0;
+}
