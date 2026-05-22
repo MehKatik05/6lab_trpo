@@ -76,19 +76,23 @@ private:
  */
 struct CopySyntaxTree : Transformer
 {
+	//Создание копии узла Number
 	Expression* transformNumber(Number const* number)
 	{
 		return new Number(number->value());
 	}
+	//Создание копии узла BinaryOperation
 	Expression* transformBinaryOperation(BinaryOperation const* binop)
 	{
 		Expression* new_left = binop->left()->transform(this);
 		Expression* new_right = binop->right()->transform(this);
 		return new BinaryOperation(new_left, binop->operation(), new_right);
 	}
+	//Создание копии узла FunctionCall
 	Expression* transformFunctionCall(FunctionCall const* fcall)
 	{
-		// ваш код
+		Expression* new_arg = fcall->arg()->transform(this);
+		return new FunctionCall(fcall->name(), new_arg);
 	}
 	Expression* transformVariable(Variable const* var)
 	{
