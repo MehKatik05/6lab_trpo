@@ -28,3 +28,26 @@ public:
         cout << "Подаётся тыквенный суп." << std::endl;
     }
 };
+
+//Вторые блюда
+class SecondCourse {
+public:
+    virtual ~SecondCourse() {}
+    virtual void serve() const = 0;
+};
+
+//Жареная картошка
+class FriedPotatoes : public SecondCourse {
+public:
+    void serve() const override {
+        cout << "Подаётся жареная картошка." << endl;
+    }
+};
+
+//Котлета
+class Cutlet : public SecondCourse {
+public:
+    void serve() const override {
+        cout << "Подаётся котлета." << endl;
+    }
+};
