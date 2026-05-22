@@ -71,7 +71,6 @@ public:
         cout << "Калории: " << soup->getCalories() + sec_course->getCalories() << endl;
         cout << "Меню: ";
         soup->serve();
-        cout << ", ";
         sec_course->serve();
         cout << endl;
 
