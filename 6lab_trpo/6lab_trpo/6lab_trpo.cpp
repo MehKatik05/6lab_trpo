@@ -78,7 +78,7 @@ struct CopySyntaxTree : Transformer
 {
 	Expression* transformNumber(Number const* number)
 	{
-		// ваш код
+		return new Number(number->value());
 	}
 	Expression* transformBinaryOperation(BinaryOperation const* binop)
 	{
