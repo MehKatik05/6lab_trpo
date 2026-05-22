@@ -1,20 +1,95 @@
-﻿// 6lab_trpo.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
 
-#include <iostream>
-
-int main()
+struct Transformer;
+struct Number;
+struct BinaryOperation;
+struct FunctionCall;
+struct Variable;
+struct Expression
 {
-    std::cout << "Hello World!\n";
-}
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+	virtual ~Expression() {}
+		virtual double evaluate() const = 0;
+	virtual Expression* transform(Transformer* tr) const = 0;
+};
+struct Transformer //pattern Visitor
+{
+	virtual ~Transformer() {}
+	virtual Expression* transformNumber(Number const*) = 0;
+	virtual Expression* transformBinaryOperation(BinaryOperation const*) = 0;
+	virtual Expression* transformFunctionCall(FunctionCall const*) = 0;
+	virtual Expression* transformVariable(Variable const*) = 0;
+};
+struct Number : Expression
+{
+	Number(double value);
+	double value() const;
+	double evaluate() const;
+	Expression* transform(Transformer* tr) const;
+private:
+	double value_;
+};
+struct BinaryOperation : Expression
+{
+	enum {
+		PLUS = '+',
+		MINUS = '-',
+		DIV = '/',
+		MUL = '*'
+	};
+	BinaryOperation(Expression const* left, int op, Expression const* right);
+	~BinaryOperation();
+	double evaluate() const;
+	Expression* transform(Transformer* tr) const;
+	Expression const* left() const;
+	Expression const* right() const;
+	int operation() const;
+private:
+	Expression const* left_;
+	Expression const* right_;
+	int op_;
+};
+struct FunctionCall : Expression
+{
+	FunctionCall(std::string const& name, Expression const* arg);
+	~FunctionCall();
+	double evaluate() const;
+	Expression* transform(Transformer* tr) const;
+	std::string const& name() const;
+	Expression const* arg() const;
+private:
+	std::string const name_;
+	Expression const* arg_;
+};
+struct Variable : Expression
+{
+	Variable(std::string const name);
+	std::string const& name() const;
+	double evaluate() const;
+	Expression* transform(Transformer* tr) const;
+private:
+	std::string const name_;
+};
+/**
+ * реализуйте все необходимые методы класса
+ * вы можете определять любые вспомогательные
+ * методы, если хотите
+ */
+struct CopySyntaxTree : Transformer
+{
+	Expression* transformNumber(Number const* number)
+	{
+		// ваш код
+	}
+	Expression* transformBinaryOperation(BinaryOperation const* binop)
+	{
+		// ваш код
+	}
+	Expression* transformFunctionCall(FunctionCall const* fcall)
+	{
+		// ваш код
+	}
+	Expression* transformVariable(Variable const* var)
+	{
+		// ваш код
+	}
+};
