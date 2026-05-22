@@ -94,8 +94,9 @@ struct CopySyntaxTree : Transformer
 		Expression* new_arg = fcall->arg()->transform(this);
 		return new FunctionCall(fcall->name(), new_arg);
 	}
+	//Создание копии узла Variable
 	Expression* transformVariable(Variable const* var)
 	{
-		// ваш код
+		return new Variable(var->name());
 	}
 };
