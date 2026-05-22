@@ -1,0 +1,30 @@
+﻿//Разработайте иерархию классов Суп →(Борщ, Тыквенный суп),
+//ВтороеБлюдо →(ЖаренаяКартошка, Котлета).При помощи паттерна AbstractFactory
+//разработайте классы Диета →(МяснаяДиета, ВегетарианскаяДиета).Продемонстрируйте
+//работу паттерна.
+#include <iostream>
+
+using namespace std;
+
+//Абстрактный суп
+class Soup {
+public:
+    virtual ~Soup() {}
+    virtual void serve() const = 0;
+};
+
+//Борщ
+class Borscht : public Soup {
+public:
+    void serve() const override {
+        cout << "Подаётся борщ." << std::endl;
+    }
+};
+
+//Тыквенный суп
+class PumpkinSoup : public Soup {
+public:
+    void serve() const override {
+        cout << "Подаётся тыквенный суп." << std::endl;
+    }
+};
