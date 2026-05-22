@@ -57,3 +57,47 @@ public:
     }
     int getCalories() const override { return 250; }
 };
+
+class Diet {
+public:
+    virtual ~Diet() {}
+    virtual Soup* createSoup() const = 0;
+    virtual SecondCourse* createSecondCourse() const = 0;
+
+    void printMenu() const {
+        Soup* soup = createSoup();
+        SecondCourse* sec_course = createSecondCourse();
+
+        cout << "Калории: " << soup->getCalories() + sec_course->getCalories() << endl;
+        cout << "Меню: ";
+        soup->serve();
+        cout << ", ";
+        sec_course->serve();
+        cout << endl;
+
+        delete soup;
+        delete sec_course;
+    }
+};
+
+//Мясная диета
+class MeatDiet : public Diet {
+public:
+    Soup* createSoup() const override {
+        return new Borscht(); //борщ
+    }
+    SecondCourse* createSecondCourse() const override {
+        return new Cutlet(); //котлета
+    }
+};
+
+//Вегетарианская диета
+class VegetarianDiet : public Diet {
+public:
+    Soup* createSoup() const override {
+        return new PumpkinSoup(); //тыквенный суп
+    }
+    SecondCourse* createSecondCourse() const override {
+        return new FriedPotatoes(); //жареная картошка
+    }
+};
