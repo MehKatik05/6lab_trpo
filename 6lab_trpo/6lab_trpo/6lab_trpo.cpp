@@ -82,7 +82,9 @@ struct CopySyntaxTree : Transformer
 	}
 	Expression* transformBinaryOperation(BinaryOperation const* binop)
 	{
-		// ваш код
+		Expression* new_left = binop->left()->transform(this);
+		Expression* new_right = binop->right()->transform(this);
+		return new BinaryOperation(new_left, binop->operation(), new_right);
 	}
 	Expression* transformFunctionCall(FunctionCall const* fcall)
 	{
